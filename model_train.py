@@ -102,7 +102,7 @@ def create_cls_model(num_labels):
         optimizer=Adam(1e-5), # 用足够小的学习率
         metrics=['accuracy']
     )
-    # model.summary()
+    model.summary()
 
     return model
 
