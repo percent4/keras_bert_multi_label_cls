@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from keras.models import load_model
 from keras_bert import get_custom_objects
-from sklearn.metrics import hamming_loss
+from sklearn.metrics import hamming_loss, classification_report
 
 from model_train import token_dict, OurTokenizer
 
@@ -58,6 +58,8 @@ def evaluate():
         true_label_list.append(true_label)
         pred_label_list.append(pred_label)
 
+    # F1值
+    print(classification_report(true_y_list, pred_y_list, digits=4))
     return true_label_list, pred_label_list, hamming_loss(true_y_list, pred_y_list), common_cnt/len(true_y_list)
 
 
