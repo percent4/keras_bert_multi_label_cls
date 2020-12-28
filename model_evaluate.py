@@ -16,7 +16,7 @@ from model_train import token_dict, OurTokenizer
 maxlen = 256
 
 # 加载训练好的模型
-model = load_model("multi-label-ee.h5", custom_objects=get_custom_objects())
+model = load_model("wwm_multi-label-ee.h5", custom_objects=get_custom_objects())
 tokenizer = OurTokenizer(token_dict)
 with open("label.json", "r", encoding="utf-8") as f:
     label_dict = json.loads(f.read())
@@ -51,7 +51,7 @@ def evaluate():
                 true_y[int(key)] = 1
 
         pred_y, pred_label = predict_single_text(content)
-        if true_label == pred_label:
+        if set(true_label.split("|")) == set(pred_label.split("|")):
             common_cnt += 1
         true_y_list.append(true_y)
         pred_y_list.append(pred_y)
