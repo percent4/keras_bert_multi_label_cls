@@ -54,6 +54,8 @@ ________________________________________________________________________________
 
 #### 事件抽取任务数据集
 
+- chinese_L-12_H-768_A-12
+
 模型参数: batch_size = 8, maxlen = 256, epoch=10
 
 使用chinese_L-12_H-768_A-12预训练模型，评估结果如下:
@@ -136,6 +138,8 @@ accuracy:  0.8985313751668892
 hamming loss:  0.001869158878504673
 ```
 
+- chinese_wwm_ext_L-12_H-768_A-12
+
 模型参数: batch_size = 8, maxlen = 256, epoch=10
 
 使用chinese_wwm_ext_L-12_H-768_A-12预训练模型，评估结果如下：
@@ -150,12 +154,20 @@ accuracy:  0.9092122830440588
 hamming loss:  0.0017048372188559105
 ```
 
-模型参数: batch_size = 2, maxlen = 128, epoch=10
+- chinese_roberta_wwm_large_ext_L-24_H-1024_A-16
+
+模型参数: batch_size = 2, maxlen = 256, epoch=10
 
 使用chinese_roberta_wwm_large_ext_L-24_H-1024_A-16预训练模型，评估结果如下：
 
 ```
+   micro avg     0.9385    0.9584    0.9483      1657
+   macro avg     0.9372    0.9482    0.9383      1657
+weighted avg     0.9428    0.9584    0.9488      1657
+ samples avg     0.9581    0.9700    0.9579      1657
 
+accuracy:  0.9065420560747663
+hamming loss:  0.001776727944952244
 ```
 
 ### 项目启动
