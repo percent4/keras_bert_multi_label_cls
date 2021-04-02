@@ -12,6 +12,8 @@ from keras.layers import *
 from keras.models import Model
 from keras.optimizers import Adam
 
+from FGM import adversarial_training
+
 # 建议长度<=510
 maxlen = 256
 BATCH_SIZE = 8
@@ -89,14 +91,14 @@ def create_cls_model(num_labels):
     for layer in bert_model.layers:
         layer.trainable = True
 
-    x1_in = Input(shape=(None,))
-    x2_in = Input(shape=(None,))
-
-    x = bert_model([x1_in, x2_in])
-    cls_layer = Lambda(lambda x: x[:, 0])(x)    # 取出[CLS]对应的向量用来做分类
+    # x1_in = Input(shape=(None,))
+    # x2_in = Input(shape=(None,))
+    #
+    # x = bert_model([x1_in, x2_in])
+    cls_layer = Lambda(lambda x: x[:, 0])(bert_model.output)    # 取出[CLS]对应的向量用来做分类
     p = Dense(num_labels, activation='sigmoid')(cls_layer)     # 多分类
 
-    model = Model([x1_in, x2_in], p)
+    model = Model(bert_model.input, p)
     model.compile(
         loss='binary_crossentropy',
         optimizer=Adam(1e-5), # 用足够小的学习率
@@ -152,6 +154,8 @@ if __name__ == '__main__':
 
     # 模型训练
     model = create_cls_model(len(labels))
+    # 启用对抗训练FGM
+    adversarial_training(model, 'Embedding-Token', 0.5)
     train_D = DataGenerator(train_data)
     test_D = DataGenerator(test_data)
 
